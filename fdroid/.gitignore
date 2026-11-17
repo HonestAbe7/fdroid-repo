@@ -1,0 +1,10 @@
+# Generated or secret — never commit these.
+# (APKs in repo/ are meant to be committed — that is how a new version is added.)
+keystore.p12
+config.yml
+repo/index-v1.jar
+repo/index-v2.json
+repo/index.xml
+repo/entry.json
+repo/icons/
+metadata/

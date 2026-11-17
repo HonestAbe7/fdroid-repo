@@ -64,6 +64,10 @@ jobs:
           test -n "${FDROID_KEYSTORE_B64:-}" || { echo "::error::FDROID_KEYSTORE_B64 secret is not set"; exit 1; }
           mkdir -p fdroid/repo
           echo "$FDROID_KEYSTORE_B64" | base64 -d > fdroid/keystore.p12
+          # diagnostic: the decoded keystore must match this hash (proves the
+          # FDROID_KEYSTORE_B64 secret pasted intact)
+          echo "decoded keystore sha256:"; sha256sum fdroid/keystore.p12
+          echo "expected sha256: 56335a5afd639778557c1d8fd97360bf636d89e8acc697ff917046b6abac9ecd"
           cp fdroid/config.template.yml fdroid/config.yml
           # passwords are injected here into the EPHEMERAL config — never deployed
           printf 'keystorepass: "%s"\n' "$FDROID_KEYSTORE_PASS" >> fdroid/config.yml
@@ -71,6 +75,10 @@ jobs:
           chmod 600 fdroid/keystore.p12 fdroid/config.yml
           # repo fingerprint (PUBLIC) = SHA-256 of the index signing cert; surfaced on the landing page
           FP="$(keytool -exportcert -alias fdroidrepo -keystore fdroid/keystore.p12 -storepass "$FDROID_KEYSTORE_PASS" 2>/dev/null | openssl dgst -sha256 | awk '{print toupper($NF)}')"
+          echo "repo fingerprint from keystore: $FP"
+          # empty-input hash means keytool could not read the keystore at all:
+          # fail loudly here instead of later inside fdroid
+          if [ "$FP" = "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855" ]; then echo "::error::keytool could not read the keystore — FDROID_KEYSTORE_B64 or FDROID_KEYSTORE_PASS secret is wrong"; exit 1; fi
           echo "FDROID_FP=$FP" >> "$GITHUB_ENV"
 
       - name: Check for APKs

@@ -1,0 +1,18 @@
+# Template for the self-hosted F-Droid repo config.
+#
+# CI copies this to fdroid/config.yml and APPENDS keystorepass/keypass from
+# GitHub Actions secrets at build time. NEVER put passwords in this committed
+# template, and never commit the generated config.yml or the keystore.
+
+repo_url: "https://honestabe7.github.io/fdroid-repo/repo"
+repo_name: "Useful Apps 4 Everyone"
+repo_description: >-
+  Ball Sort and other useful apps. No ads, no trackers, offline.
+
+# Keep every APK that lands in repo/ (no separate archive split).
+archive_older: 0
+
+# Repo INDEX signing key — distinct from the app signing key. Supplied by CI;
+# the file itself is never committed.
+keystore: "keystore.p12"
+repo_keyalias: "fdroidrepo"

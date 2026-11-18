@@ -17,6 +17,10 @@ F-Droid, Droid-ify or Neo Store and the apps update automatically.
 ## Apps
 
 - **Ball Sort** (`com.example.ballsort`) v1.0.1 — relaxing tube-sorting puzzle. No timers, no points, no ads, offline.
+- **Crop Flow** (`com.example.cropflow`) v1.0.2 — level-based crop puzzle. Swap crops to hit each level's goal. No timers, no ads, offline.
+- **Number Guess** (`com.example.numberguess`) v1.1 — guess-the-number game. No ads, offline.
+- **Water Pipes** (`com.example.waterpipes`) v1.12 — connect-the-pipes puzzle. No timers, no ads, offline.
+- **Word Association** (`com.example.wordassociation`) v1.2 — 60 word-group puzzles. No timers, no points, no ads, offline.
 
 ## Adding a new version
 
